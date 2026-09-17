@@ -1,10 +1,65 @@
 # 👟 Kicks Vault — Tienda Online de Zapatillas & Streetwear
 
-Una plataforma de comercio electrónico moderna, rápida, responsiva e interactiva diseñada específicamente para una tienda de zapatillas deportivas y streetwear.
+[![GitHub Repo](https://img.shields.io/badge/GitHub-Repository-blue?logo=github)](https://github.com/Alejandro-Castillo-eng/kicks-vault-ecommerce)
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/Alejandro-Castillo-eng/kicks-vault-ecommerce)
+[![Supabase Ready](https://img.shields.io/badge/Supabase-Database%20Ready-3ECF8E?logo=supabase)](https://supabase.com)
+
+Una plataforma de comercio electrónico moderna, rápida, responsiva e interactiva diseñada específicamente para una tienda de zapatillas deportivas y streetwear con integración lista para **Supabase** y despliegue en **Vercel**.
 
 ---
 
-## 🚀 Características Principales
+## 🔗 Repositorio y Despliegue
+
+- **Repositorio en GitHub**: [https://github.com/Alejandro-Castillo-eng/kicks-vault-ecommerce](https://github.com/Alejandro-Castillo-eng/kicks-vault-ecommerce)
+- **Despliegue directo en Vercel (1 Clic)**: [Desplegar en Vercel con un clic](https://vercel.com/new/clone?repository-url=https://github.com/Alejandro-Castillo-eng/kicks-vault-ecommerce)
+
+---
+
+## 🗄️ Base de Datos en Supabase
+
+El archivo de configuración y esquema de la base de datos se encuentra en [`supabase/setup.sql`](supabase/setup.sql).
+
+### Pasos para configurar tu base de datos en Supabase:
+
+1. Ve a [Supabase.com](https://supabase.com) e inicia sesión (puedes entrar con tu cuenta de GitHub).
+2. Crea un nuevo proyecto llamado **kicks-vault**.
+3. En el menú lateral izquierdo, haz clic en **SQL Editor**.
+4. Abre el archivo [`supabase/setup.sql`](supabase/setup.sql), copia todo su contenido y pégalo en el editor SQL de Supabase.
+5. Haz clic en **Run**. ¡Se crearán automáticamente las tablas (`products`, `coupons`, `orders`, `order_items`), las políticas de seguridad (RLS) y se insertarán las 12 zapatillas iniciales!
+
+### Conectar la web con Supabase:
+En tu proyecto de Supabase ve a **Project Settings** > **API** y copia:
+- **Project URL**
+- **Anon Public API Key**
+
+Puedes agregarlos a tu `.env` o en la consola del navegador:
+```javascript
+localStorage.setItem('supabase_url', 'https://TU_PROYECTO.supabase.co');
+localStorage.setItem('supabase_anon_key', 'TU_ANON_KEY');
+```
+*Nota: Si no configuras las credenciales, la tienda funciona al 100% de manera automática utilizando el catálogo y simulación local integrada en `js/data.js`.*
+
+---
+
+## 🚀 Despliegue en Vercel
+
+### Opción A (Recomendada - Conexión con GitHub):
+1. Ve a [vercel.com](https://vercel.com) e inicia sesión con tu cuenta de GitHub (`Alejandro-Castillo-eng`).
+2. Haz clic en **"Add New..."** > **"Project"**.
+3. Selecciona el repositorio **`kicks-vault-ecommerce`**.
+4. Haz clic en **"Deploy"**.
+¡En menos de 30 segundos tu tienda estará publicada en internet con dominio HTTPS gratis! Cada `git push` que hagas se desplegará automáticamente.
+
+### Opción B (Vía Terminal CLI):
+Ejecuta en tu terminal interactiva:
+```bash
+npx vercel
+```
+Inicia sesión en el navegador cuando te lo solicite y presiona Enter para confirmar las opciones por defecto.
+
+---
+
+## 🌟 Características Principales
 
 - **Catálogo de Zapatillas Realista**: Siluetas de marcas top como Nike, Jordan, Adidas, New Balance, Puma, Vans y Asics con fotografías de alta calidad.
 - **Buscador & Filtros Avanzados**:
@@ -31,6 +86,7 @@ Una plataforma de comercio electrónico moderna, rápida, responsiva e interacti
 - **Pasarela de Pago Simulada (Checkout)**:
   - Formulario de dirección de envío y validación.
   - Métodos de pago: Tarjeta de crédito, PayPal, Apple Pay y Bizum.
+  - Registro del pedido en la base de datos de Supabase si está conectada.
   - Generación de comprobante con número de pedido único y estimación de entrega.
 - **Lista de Deseos (Wishlist)**:
   - Guarda tus sneakers favoritos pulsando en el corazón.
@@ -42,37 +98,22 @@ Una plataforma de comercio electrónico moderna, rápida, responsiva e interacti
 
 ---
 
-## 💻 Cómo Abrir y Probar el Proyecto
-
-### Opción 1: Abrir directamente en el navegador
-Puedes hacer doble clic en [index.html](file:///D:/nuevaprueba/index.html) desde tu explorador de archivos y se abrirá al instante en Chrome, Edge, Firefox o Safari.
-
-### Opción 2: Con un servidor local ligero
-Si prefieres servirlo mediante un servidor web local:
-
-**Con Node.js / npx:**
-```bash
-npx serve .
-```
-
-**Con Python:**
-```bash
-python -m http.server 3000
-```
-Y abre `http://localhost:3000` en tu navegador.
-
----
-
 ## 📁 Estructura del Proyecto
 
 ```
 D:/nuevaprueba/
 │
-├── index.html          # Estructura principal, componentes y modales
+├── index.html              # Estructura principal, componentes y modales
 ├── css/
-│   └── styles.css      # Estilos personalizados, animaciones y scrollbar
+│   └── styles.css          # Estilos personalizados, animaciones y scrollbar
 ├── js/
-│   ├── data.js         # Base de datos de productos y cupones válidos
-│   └── app.js          # Lógica interactiva del carrito, filtros y checkout
-└── README.md           # Documentación del proyecto
+│   ├── data.js             # Base de datos local y cupones válidos
+│   ├── supabase-client.js  # Capa de sincronización y cliente de Supabase
+│   └── app.js              # Lógica interactiva del carrito, filtros y checkout
+├── supabase/
+│   └── setup.sql           # Script SQL completo de creación de tablas, RLS y datos
+├── vercel.json             # Configuración de despliegue y cabeceras para Vercel
+├── .gitignore              # Exclusiones de Git
+├── .env.example            # Plantilla de variables de entorno
+└── README.md               # Documentación del proyecto
 ```
