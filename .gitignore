@@ -19,3 +19,10 @@ node_modules/
 # Operating System Files
 .DS_Store
 Thumbs.db
+
+# Supabase temp
+.temp/
+supabase/.temp/
+
+.vercel
+.env*
